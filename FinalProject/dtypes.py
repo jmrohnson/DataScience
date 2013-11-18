@@ -58,7 +58,7 @@ dtypes = [
   #     1, 1, 1350, 1350, 425, 21, 790110, 11863,
   #      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-day_mapping{
+day_mapping = {
   'Mon':1,
   'Tue':2,
   'Wed':3,
@@ -69,7 +69,7 @@ day_mapping{
 }
 
 
-region_mapping{
+region_mapping = {
   'Americas':1,
   'APAC':2,
   'EMEA':3,

@@ -10,11 +10,11 @@ select
   ,sum(case when lower(e.product) = 'fisheye' then 1 else 0 end) as fisheye_opp_email
   ,sum(case when lower(e.product) = 'jira agile' then 1 else 0 end) as jira_agile_opp_email
   ,sum(case when lower(e.product) = 'jira capture' then 1 else 0 end) as jira_capture_opp_email
-  ,sum(case when lower(e.product) = 'stash capture' then 1 else 0 end) as stash_opp_email
+  ,sum(case when lower(e.product) = 'stash' then 1 else 0 end) as stash_opp_email
 from helpspot_request a left outer join  evaluation_opportunity e
 on open_timestamp > created_date and (end_date is null or open_timestamp < end_date)
   and email = customer_email
-where date_month(a.open_timestamp) between '2013-05' and '2013-09'
+where date_month(a.open_timestamp) between '2013-04' and '2013-08'
   and case_level != ''
   and a.subject != 'Delivery Status Notification (Failure)'
 group by a.request_id

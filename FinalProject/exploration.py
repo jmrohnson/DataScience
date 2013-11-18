@@ -1,7 +1,8 @@
 import sys
 import time
 import pickle
-import matplotlib as plt
+import math
+import matplotlib.pyplot as plt
 
 from dtypes import dtypes, ind, day_mapping, region_mapping
 
@@ -10,7 +11,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import Normalizer
+
 from sklearn import svm
 from sklearn import decomposition
 from sklearn import cross_validation as cv
@@ -21,7 +22,7 @@ from sklearn import metrics
 from sklearn.cluster import KMeans, MiniBatchKMeans
 
 import numpy as np
-
+import sklearn.preprocessing as preprocessing
 
 
 
@@ -101,86 +102,108 @@ def remove_data(data, indices):
 def select_data(np_array, col_indices):
   return np_array[:,col_indices]
 
-def convert_region_to_int(np_array, col):
+def convert_category_to_int(np_array, col):
   if col == 'region':
     mapping = region_mapping
   elif col == 'day_name':
     mapping = day_mapping
-  for index in col_indices:
-    types = np.unique(select_data(np_array, [col]))
-    i = 0
-    mapping = {}
-    for t in types:
-      mapping[t] = i
-      i+=1
-    j = 0
-    for row in np_array:
-      row[index] = mapping[row[col]]
+  index = ind[col]
+  types = np.unique(select_data(np_array, index))
+  for row in np_array:
+    row[index] = mapping[row[index]]
 
       #Check out vectorizer for this
       #TF IDF Vectorizer
       
     
-def load_data():
+def load_data(build_data=0):
+  if build_data:
+    print "Building Data Fresh"
+   # Get TRAIN the data, this is the main data with the label
+    request_data = read_csv(data_directory + 'request_info_train.txt')
+    # Append BTF sale
+    btf_info = read_csv_to_dict(data_directory + 'btf_info_train.txt')
+    append_data(request_data, btf_info)
+    # Append OD sale
+    od_info = read_csv_to_dict(data_directory + 'od_info_train.txt')
+    append_data(request_data, od_info)
+    # Append sale info
+    sale_info = read_csv_to_dict(data_directory + 'sale_info_train.txt')
+    append_data(request_data, sale_info)
+    # Append Opportunity INFO
+    opp_info = read_csv_to_dict(data_directory + 'opp_info_train.txt')
+    append_data(request_data, opp_info)
+    # Get Labels
+    labels = get_labels(request_data, lambda x: x == 1)
+    
+    
+    #Get Subjects for Text Analysis
+    subjects = [request[ind['subject']] for request in request_data]
 
- # Get TRAIN the data, this is the main data with the label
-  request_data = read_csv(data_directory + 'request_info_train.txt')
-  # Append BTF sale
-  btf_info = read_csv_to_dict(data_directory + 'btf_info_train.txt')
-  append_data(request_data, btf_info)
-  # Append OD sale
-  od_info = read_csv_to_dict(data_directory + 'od_info_train.txt')
-  append_data(request_data, od_info)
-  # Append sale info
-  sale_info = read_csv_to_dict(data_directory + 'sale_info_train.txt')
-  append_data(request_data, sale_info)
-  # Append Opportunity INFO
-  opp_info = read_csv_to_dict(data_directory + 'opp_info_train.txt')
-  append_data(request_data, opp_info)
-  # Get Labels
-  labels = get_labels(request_data, lambda x: x == 1)
-  
-  
-  #Get Subjects for Text Analysis
-  subjects = [request[ind['subject']] for request in request_data]
+    #UnCorrelate JIRA and Agile
+    # request_data = [row + 1]
 
-  #UnCorrelate JIRA and Agile
-  # request_data = [row + 1]
+    request_data = [tuple(row) for row in request_data]
+    np_request_data = np.array(request_data)
 
-  request_data = [tuple(row) for row in request_data]
-  print request_data[0]
-  np_request_data = np.array(request_data)
+    convert_category_to_int(np_request_data, 'region')
+    convert_category_to_int(np_request_data, 'day_name')
 
-  print np_request_data[0]
-  convert_category_to_int(np_request_data, 'region')
-  convert_category_to_int(np_request_data, 'day_name')
-  print np_request_data[0]
 
-  np_request_data = np_request_data.astype('i8')
+    only_features = remove_data(np_request_data, 
+      sorted([ind['month'],
+             ind['id'],
+             ind['opened'],
+             ind['day'],
+             ind['week'],
+             ind['email'],
+             ind['email_domain'],
+             ind['subject']]) )
 
-  only_features = remove_data(np_request_data, 
-    sorted([ind['month'],
-           ind['id'],
-           ind['opened'],
-           ind['day'],
-           ind['week'],
-           ind['email'],
-           ind['email_domain'],
-           ind['subject']]) )
-  print only_features[0]
+    only_features = np.array(only_features).astype('i8')
 
-  # f = open('features', 'w')
+    #Bring the Dollar Amounts down to Log Scale
+    dollar_features = ['prev_sales_dollars_email', 'prev_sales_dollars_email_month', 
+                       'prev_sales_dollars_email_domain', 'prev_sales_dollars_email_domain_month']
+    
+    for feature in dollar_features:
+      index = ind[feature] - 8  # Minus 8 because we removed 8 features above
+      for row in only_features:
+        amount = row[index]
+        if amount < 0:
+          row[index] = (-1)*math.log(float((-1)*amount))
+        elif amount > 0:
+          row[index] = math.log(float(amount))
+    
 
-  # pickle.dump(only_features, f)
+    print "Data Built Fresh. It looks like this:"
+    print only_features[0]
 
-  # f.close()
+    f = open('features', 'w')
+    pickle.dump(only_features, f)
+    f.close()
+    f = open('labels', 'w')
+    pickle.dump(labels, f)
+    f.close()
+
+  else:
+    print "Loading Pickled Data"
+    f = open('features', 'r')
+    only_features = np.array(pickle.load(f))
+    f.close()
+    f = open('labels', 'r')
+    labels = np.array(pickle.load(f))
+    f.close()
+    print "Data Loaded from pickle. It looks like this:"
+    print only_features[0]
 
   return only_features, labels
 
 
-def plot_distribution(data, index):
-  col = data[:][0]
+def plot_distribution(data, index, title):
+  col = select_data(data, [index])
   plt.hist(col)
+  plt.title(title)
   plt.show()
 
 def decomposition_pca(train, test):
@@ -237,21 +260,50 @@ def write_data(filename, data):
 if __name__ == "__main__":
   # request_data = read_csv_to_numpy_array(data_directory + 'request_info_train.txt')
 
-    X_data, y_data = load_data()
-    X_data = np.array(X_data)
-    y_data = np.array(y_data)
-    X_data = decomposition_pca_train(X_data)
-    print "PCA Finished"
-    print len(X_data)
-    print len(y_data)
+  if len(sys.argv) > 1:
+    build_data = int(sys.argv[1])
+  else:
+    print "you didn't say whether or not to build the data so we'll pickle it"
+    build_data=0
+  
 
-    X_train, X_test, y_train, y_test = split_data(X_data, y_data)
-    print "Data Split"
-    # clf = train(X_train, y_train)
-    # clf= svm.SVC()
-    # logReg = 
-    print "Model Trained"
-    # show_score(clf, X_test, y_test)
+  X_data, y_data = load_data(build_data=build_data)
+  # X_data = np.array(X_data)
+  # y_data = np.array(y_data)
+  # X_data = decomposition_pca_train(X_data)
+  # print "PCA Finished"
+
+  ## Let's see what is correlated in hurr!
+  cor = np.corrcoef(X_data, rowvar=0)
+  for i in range(0,len(X_data[0])-2):
+    for j in range(i+1, len(X_data[0])-1):
+      c = cor[i,j]
+      if c > .1 or c < -.1:
+        print "Kinda High Correlation for (%i, %i): %f" % (i, j, c)
+
+
+  
+  min_max_scaler = preprocessing.MinMaxScaler()
+  category_data = select_data(X_data, [0,1])
+  numerical_data = select_data(X_data, range(2,37))
+
+  X_data = np.hstack((category_data, numerical_data))
+
+
+
+
+  X_train, X_test, y_train, y_test = split_data(X_data, y_data)
+  print "Data Split"
+  print X_train[0:10]
+  
+  # for i, item in enumerate(X_train):
+  # plot_distribution(X_train, 0, "Day")
+  # clf = train(X_train, y_train)
+  # clf= svm.SVC()
+  # clf.fit(X_train, y_train)
+  # # logReg = 
+  print "Model Trained"
+  # show_score(clf, X_test, y_test)
 
   # btf_info = read_csv(data_directory + 'request_info_train.txt', 9)
   # od_info = read_csv(data_directory + 'request_info_train.txt', 10)

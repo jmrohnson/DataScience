@@ -11,7 +11,7 @@ select
 from helpspot_request a left outer join  license_ondemand lo
 on open_timestamp > eval_date and (open_timestamp <expiry_date)
   and a.customer_email = lo.tech_email
-where date_month(a.open_timestamp) between '2013-05' and '2013-09'
+where date_month(a.open_timestamp) between '2013-04' and '2013-08'
   and a.subject != 'Delivery Status Notification (Failure)'
   and case_level != ''
 group by a.request_id

@@ -11,7 +11,7 @@ select
 from helpspot_request a  left outer join sale s
   on s.email_domain = customer_email_domain
     and date < open_timestamp 
-where date_month(a.open_timestamp) between '2013-05' and '2013-09'
+where date_month(a.open_timestamp) between '2013-04' and '2013-08'
   and case_level != ''
   and a.subject != 'Delivery Status Notification (Failure)'
 group by a.request_id

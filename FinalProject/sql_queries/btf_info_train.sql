@@ -10,7 +10,7 @@ select
 from helpspot_request a left outer join  (select * from license where not hosted) lo
 on open_timestamp > start_date and (open_timestamp < expiry_date or expiry_date is null)
   and a.customer_email = lo.tech_email
-where date_month(a.open_timestamp) between '2013-05' and '2013-09'
+where date_month(a.open_timestamp) between '2013-04' and '2013-08'
   and case_level != ''
   and a.subject != 'Delivery Status Notification (Failure)'
 group by a.request_id

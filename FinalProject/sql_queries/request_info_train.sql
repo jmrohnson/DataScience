@@ -12,7 +12,7 @@ select
   ,a.region
   ,substring(a.case_level, 'Ops Level ([1-4])') as case_level
 from helpspot_request a
-where date_month(a.open_timestamp) between '2013-05' and '2013-09'
+where date_month(a.open_timestamp) between '2013-04' and '2013-08'
   and a.subject != 'Delivery Status Notification (Failure)'
   and case_level != ''
 order by a.request_id;
