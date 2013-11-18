@@ -3,3 +3,8 @@ hw3/*
 FinalProject/features
 FinalProject/data/*
 *.pyc
+FinalProject/models
+features_train
+labels_train
+features_test
+labels_test

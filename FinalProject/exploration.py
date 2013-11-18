@@ -30,7 +30,7 @@ from read_csv import read_csv, read_csv_to_dict
 # from read_csv import read_csv_to_numpy_array
 
 data_directory = '/Users/rjohnson/Documents/DS/DataScience/FinalProject/data/'
-
+model_directory = '/Users/rjohnson/Documents/DS/DataScience/FinalProject/models/'
 
 
 
@@ -116,22 +116,22 @@ def convert_category_to_int(np_array, col):
       #TF IDF Vectorizer
       
     
-def load_data(build_data=0):
+def load_data(build_data=0, test_train='train'):
   if build_data:
     print "Building Data Fresh"
    # Get TRAIN the data, this is the main data with the label
-    request_data = read_csv(data_directory + 'request_info_train.txt')
+    request_data = read_csv(data_directory + 'request_info_' + test_train + '.txt')
     # Append BTF sale
-    btf_info = read_csv_to_dict(data_directory + 'btf_info_train.txt')
+    btf_info = read_csv_to_dict(data_directory + 'btf_info_' + test_train + '.txt')
     append_data(request_data, btf_info)
     # Append OD sale
-    od_info = read_csv_to_dict(data_directory + 'od_info_train.txt')
+    od_info = read_csv_to_dict(data_directory + 'od_info_' + test_train + '.txt')
     append_data(request_data, od_info)
     # Append sale info
-    sale_info = read_csv_to_dict(data_directory + 'sale_info_train.txt')
+    sale_info = read_csv_to_dict(data_directory + 'sale_info_' + test_train + '.txt')
     append_data(request_data, sale_info)
     # Append Opportunity INFO
-    opp_info = read_csv_to_dict(data_directory + 'opp_info_train.txt')
+    opp_info = read_csv_to_dict(data_directory + 'opp_info_' + test_train + '.txt')
     append_data(request_data, opp_info)
     # Get Labels
     labels = get_labels(request_data, lambda x: x == 1)
@@ -148,6 +148,8 @@ def load_data(build_data=0):
 
     convert_category_to_int(np_request_data, 'region')
     convert_category_to_int(np_request_data, 'day_name')
+
+
 
 
     only_features = remove_data(np_request_data, 
@@ -179,19 +181,19 @@ def load_data(build_data=0):
     print "Data Built Fresh. It looks like this:"
     print only_features[0]
 
-    f = open('features', 'w')
+    f = open('features_'+test_train, 'w')
     pickle.dump(only_features, f)
     f.close()
-    f = open('labels', 'w')
+    f = open('labels_'+test_train, 'w')
     pickle.dump(labels, f)
     f.close()
 
   else:
     print "Loading Pickled Data"
-    f = open('features', 'r')
+    f = open('features_'+test_train, 'r')
     only_features = np.array(pickle.load(f))
     f.close()
-    f = open('labels', 'r')
+    f = open('labels_'+test_train, 'r')
     labels = np.array(pickle.load(f))
     f.close()
     print "Data Loaded from pickle. It looks like this:"
@@ -255,6 +257,11 @@ def write_data(filename, data):
     """ Write numpy array into CSV """
     np.savetxt(filename, data, fmt='%d')
 
+def normalize_data(x_data):
+  min_max_scaler = preprocessing.MinMaxScaler()
+  category_data = select_data(x_data, [0,1])
+  numerical_data = select_data(x_data, range(2,37))
+  x_data = np.hstack((category_data, numerical_data))
 
 
 if __name__ == "__main__":
@@ -267,7 +274,13 @@ if __name__ == "__main__":
     build_data=0
   
 
-  X_data, y_data = load_data(build_data=build_data)
+  # PLOTTING SOME DATA
+  # for i, item in enumerate(X_train):
+  # # plot_distribution(X_train, 0, "Day")
+
+
+  X_data, y_data = load_data(build_data=build_data, test_train='train')
+  test_data, test_labels = load_data(build_data=build_data, test_train='test')
   # X_data = np.array(X_data)
   # y_data = np.array(y_data)
   # X_data = decomposition_pca_train(X_data)
@@ -278,35 +291,48 @@ if __name__ == "__main__":
   for i in range(0,len(X_data[0])-2):
     for j in range(i+1, len(X_data[0])-1):
       c = cor[i,j]
-      if c > .1 or c < -.1:
+      if c > .65 or c < -.65:
         print "Kinda High Correlation for (%i, %i): %f" % (i, j, c)
 
 
+  normalize_data(X_data)
+  normalize_data(test_data)
+
   
-  min_max_scaler = preprocessing.MinMaxScaler()
-  category_data = select_data(X_data, [0,1])
-  numerical_data = select_data(X_data, range(2,37))
+  ### THIS IS THE ORIGINAL - BESAST MODE!
+  # X_train, X_test, y_train, y_test = split_data(X_data, y_data)
+  # print "Data Split"
+  # print len(X_train[0])
+  # print X_train[0]
 
-  X_data = np.hstack((category_data, numerical_data))
+  # print len(test_data[0])
+  # print test_data[0]
 
 
-
-
-  X_train, X_test, y_train, y_test = split_data(X_data, y_data)
-  print "Data Split"
-  print X_train[0:10]
-  
-  # for i, item in enumerate(X_train):
-  # plot_distribution(X_train, 0, "Day")
-  # clf = train(X_train, y_train)
-  # clf= svm.SVC()
-  # clf.fit(X_train, y_train)
-  # # logReg = 
-  print "Model Trained"
+  # if 1:
+  #   clf= svm.SVC()
+  #   clf.fit(X_train, y_train)
+  #   f=open(model_directory + 'svmBasic', 'w')
+  #   pickle.dump(clf, f)
+  #   f.close()
+  # else:
+  #   f=open(model_directory + 'svmBasic', 'r')
+  #   clf = pickle.load(f)
+  #   f.close()
+  # # # logReg = 
+  # print "Model Trained, Here is how it is looking on validation data:"
   # show_score(clf, X_test, y_test)
 
-  # btf_info = read_csv(data_directory + 'request_info_train.txt', 9)
-  # od_info = read_csv(data_directory + 'request_info_train.txt', 10)
-  # # recent_request_history = read_csv(data_directory + 'recent_request_history_train.txt', 12)
-  # opp_info = read_csv(data_directory + 'request_info_train.txt', 13)
-  # sale_info = read_csv(data_directory + 'recent_request_history_train.txt', 10)
+  # print "Model Trained, Here is how it is looking on Test Data:"
+  # show_score(clf, test_data, test_labels)  
+
+  # # 
+
+
+  ## NOW LET"S TRY AND GET DOWN ON SOME CROSS VALIDATION
+  clf= svm.SVC()
+  scores = cv.cross_val_score(clf, X_data, y_data, cv=5, scoring='roc_auc')
+  print "AUC SCORES FROM CV"
+  print scores  
+  print "SCORES FROM TEST DATA"
+  show_score(clf, test_data, test_labels)
