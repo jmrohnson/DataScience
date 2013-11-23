@@ -24,6 +24,23 @@ def read_csv(file_name):
     i+=1
   return to_return
 
+def read_email_file(file_name):
+  read_file = open(file_name, 'r')
+  to_return = {}
+  for line in read_file:
+    row = line.split('|')
+    if not row[0] in to_return:  
+      row = map(lambda s: as_int(s.strip()), row)
+      key = row[0]
+      if len(row) > 2:
+        email = ""
+        for i in row[1:]: 
+          email += " " + str(i)
+      else:
+        email = row[1]
+      to_return[key] = email
+  return to_return
+
 
 def read_csv_to_dict(file_name):
   read_file = open(file_name, 'r')

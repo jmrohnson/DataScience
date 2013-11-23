@@ -28,16 +28,7 @@ dtypes = [
  ('jira_od_eval', 'i4'),
  ('conf_od_eval', 'i4'),
  ('agile_od_eval', 'i4'),
-  #Adding Sales Info
- ('prev_sales_email', 'i4'),
- ('prev_sales_email_month', 'i4'),
- ('prev_sales_dollars_email', 'f8'),
- ('prev_sales_dollars_email_month', 'f8'),
- ('prev_sales_email_domain', 'i4'),
- ('prev_sales_email_domain_month', 'i4'),
- ('prev_sales_dollars_email_domain', 'f8'),
- ('prev_sales_dollars_email_domain_month', 'f8'),
-  #Adding BTF Opportunity Info
+   #Adding BTF Opportunity Info
  ('total_opps', 'i4'), 
  ('jira_opp_email', 'i4'),
  ('conf_opp_email', 'i4'),
@@ -48,7 +39,16 @@ dtypes = [
  ('fisheye_opp_email', 'i4'),
  ('jira_agile_opp_email', 'i4'),
  ('jira_capture_opp_email', 'i4'),
- ('stash_opp_email', 'i4')
+ ('stash_opp_email', 'i4'),
+  #Adding Sales Info
+ ('prev_sales_email', 'i4'),
+ ('prev_sales_email_month', 'i4'),
+ ('prev_sales_dollars_email', 'f8'),
+ ('prev_sales_dollars_email_month', 'f8'),
+ ('prev_sales_email_domain', 'i4'),
+ ('prev_sales_email_domain_month', 'i4'),
+ ('prev_sales_dollars_email_domain', 'f8'),
+ ('prev_sales_dollars_email_domain_month', 'f8')
   ]
 
   # (736667, '2013-05', '2013-05-01 00:00:01', '2013-05-01 00:00:00', 'Wed', '2013-04-29 00:00:00', 
@@ -105,27 +105,27 @@ ind = {'id': 0,
   'jira_od_eval': 24,
   'conf_od_eval': 25,
   'agile_od_eval': 26,
-  #Adding Sales Info
-  'prev_sales_email': 27,
-  'prev_sales_email_month': 28,
-  'prev_sales_dollars_email': 29,
-  'prev_sales_dollars_email_month': 30,
-  'prev_sales_email_domain': 31,
-  'prev_sales_email_domain_month': 32,
-  'prev_sales_dollars_email_domain': 33,
-  'prev_sales_dollars_email_domain_month': 34,
   #Adding BTF Opportunity Info
-  'total_opps': 35,
-  'jira_opp_email': 36,
-  'conf_opp_email': 37,
-  'bamboo_opp_email': 38,
-  'team_cal_opp_email': 39,
-  'crowd_opp_email': 40,
-  'crucible_opp_email': 41,
-  'fisheye_opp_email': 42,
-  'jira_agile_opp_email': 43,
-  'jira_capture_opp_email': 44,
-  'stash_opp_email': 45,
+  'total_opps': 27,
+  'jira_opp_email': 28,
+  'conf_opp_email': 29,
+  'bamboo_opp_email': 30,
+  'team_cal_opp_email': 31,
+  'crowd_opp_email': 32,
+  'crucible_opp_email': 33,
+  'fisheye_opp_email': 34,
+  'jira_agile_opp_email': 35,
+  'jira_capture_opp_email': 36,
+  'stash_opp_email': 37,
+  #Adding Sales Info
+  'prev_sales_email': 38,
+  'prev_sales_email_month': 39,
+  'prev_sales_dollars_email': 40,
+  'prev_sales_dollars_email_month': 41,
+  'prev_sales_email_domain': 42,
+  'prev_sales_email_domain_month': 43,
+  'prev_sales_dollars_email_domain': 44,
+  'prev_sales_dollars_email_domain_month': 45,
   }
 
 
