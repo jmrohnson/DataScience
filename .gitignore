@@ -3,5 +3,6 @@ hw3/*
 FinalProject/features
 FinalProject/data/*
 *.pyc
+*.log
 FinalProject/pickle_data
 FinalProject/models

@@ -73,7 +73,9 @@ def run_query(connection, request_list):
 if __name__ == "__main__":
 
   data_directory = '/Users/rjohnson/Documents/DS/DataScience/FinalProject/data/'
-  requests = read_csv.read_csv(data_directory + 'request_info_test.txt')
+  test_requests = read_csv.read_csv(data_directory + 'request_info_test.txt')
+  train_requests = read_csv.read_csv(data_directory + 'request_info_train.txt')
+  requests = train_requests + test_requests
   num_requests = len(requests)
   print "Number of Request = %i " % len(requests)
   hsdb = pg.connect(helpspotDB['db_name'], helpspotDB['db_server'], helpspotDB['db_port'], None, None, helpspotDB['db_username'], helpspotDB['db_password'])

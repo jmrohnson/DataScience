@@ -47,7 +47,7 @@ def stemming(word_list, stemmer_type=""):
 
 if __name__ == "__main__":
   final_out = {}
-  for i in range(0, 9):
+  for i in range(0, 44):
     data_file = data_directory + 'email_text/email_text_tmp_test_' + str(i) + '.txt'
     print "Reading data from %s" % data_file
     emails = read_email_file(data_file)

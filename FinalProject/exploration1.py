@@ -26,7 +26,7 @@ import scipy
 import load_data
 
 import logging
-logging.basicConfig(filename='models_5.log',level=logging.DEBUG)
+logging.basicConfig(filename='grid_search_1.log',level=logging.DEBUG)
 
 
 # from read_csv import read_csv_to_numpy_array
@@ -185,74 +185,66 @@ if __name__ == "__main__":
   # for i, item in enumerate(X_train):
   # # plot_distribution(X_train, 0, "Day")
   
-  # train_email_features, test_email_features = load_data.load_email_data(0, 'tfid_idf')
-  # vectorizer = 'TfidfVectorizer'
-  # stem = 'PorterStemmer'
+  vectorizer = 'TfidfVectorizer'
+  stem = 'PorterStemmer'
   train_features, train_labels = load_data.load_feature_data(0, test_train='train')
   test_features, test_labels = load_data.load_feature_data(0, test_train='test')
-  # train_email_features, test_email_features = load_data.load_email_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
-  # train_subject_features, test_subject_features = load_data.load_subject_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
+  train_email_features, test_email_features = load_data.load_email_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
+  train_subject_features, test_subject_features = load_data.load_subject_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
 
-  # for t in ['email', 'subjects', 'both', 'normal']:
-  #   if t == 'email':
-  #     trainer = train_email_features
-  #     test = test_email_features
-  #     split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-  #     logging.info("============================================================")
-  #     logging.info("Grid Search SVM on Email Text")
-  #     svmTrainandPrintWithGridSearch(split_train, split_labels, test_email_features, test_labels)
-  #   elif t == 'subject':
-  #     trainer = train_subject_features
-  #     test = test_subject_features
-  #     split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-  #     logging.info("============================================================")
-  #     logging.info("Grid Search SVM on Subject Text")
-  #     svmTrainandPrintWithGridSearch(split_train, split_labels, test_email_features, test_labels)
-  #   elif t == 'both':
-  #     trainer =np.hstack(train_subject_features, train_email_features)
-  #     test = np.hstack(test_subject_features, test_email_features)
-  #     split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-  #     logging.info("============================================================")
-  #     logging.info("Grid Search SVM on ALL Text")
-  #     svmTrainandPrintWithGridSearch(split_train, split_labels, test_email_features, test_labels)
-  #   elif t =='normal':
-  #     trainer = train_features
-  #     test = test_features
-  #     split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-  #     logging.info("============================================================")
-  #     logging.info("Grid Search SVM on Customer Info")
-  #     svmTrainandPrintWithGridSearch(split_train, split_labels, test_email_features, test_labels)
+  for t in ['both', 'email', 'subject', 'normal']:
+    if t == 'email':
+      trainer = train_email_features
+      test = test_email_features
+      split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+      logging.info("============================================================")
+      logging.info("Grid Search SVM on Email Text")
+      svmTrainandPrintWithGridSearch(split_train, split_labels, test, test_labels)
+    elif t == 'subject':
+      trainer = train_subject_features
+      test = test_subject_features
+      split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+      logging.info("============================================================")
+      logging.info("Grid Search SVM on Subject Text")
+      svmTrainandPrintWithGridSearch(split_train, split_labels, test, test_labels)
+    elif t == 'both':
+      trainer = scipy.sparse.hstack([train_subject_features, train_email_features])
+      test = scipy.sparse.hstack([test_subject_features, test_email_features])
+      trainer = scipy.sparse.csr_matrix(trainer)
+      test = scipy.sparse.csr_matrix(test)
+      split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+      logging.info("============================================================")
+      logging.info("Grid Search SVM on ALL Text")
+      svmTrainandPrintWithGridSearch(split_train, split_labels, test, test_labels)
+    elif t =='normal':
+      trainer = train_features
+      test = test_features
+      split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+      logging.info("============================================================")
+      logging.info("Grid Search SVM on Customer Info")
+      svmTrainandPrintWithGridSearch(split_train, split_labels, test, test_labels)
   # #SPlit up the data to better parts
-  
   # for stem in ['PorterStemmer', 'RegexpStemmer', 'LancasterStemmer']:
   #   for vectorizer in ['TfidfVectorizer', 'HashingVectorizer']:
-  for n in [100, 1000, 10000, 100000, 1000000, 10000000, 100000000]:
-      stem = "RegexpStemmer"
-      vectorizer = "HashingVectorizer"
-      logging.info("Loading Data for %s, %s, %i:" % (stem, vectorizer, n))
-      train_email_features, test_email_features = load_data.load_email_data(0, str(n) + vectorizer, stemmer=stem, vectorizer=vectorizer, num_features=n)
-      train_subject_features, test_subject_features = load_data.load_subject_data(0, str(n) + vectorizer, stemmer=stem, vectorizer=vectorizer, num_features=n)
-      for textType in ['both']:
-        logging.info("Building Model for %s " % textType)
-        if textType == 'email':
-          train, test = train_email_features, test_email_features
-        elif textType == 'subject':
-          train, test = train_subject_features, test_subject_features
-        elif textType == 'both':
-          train = scipy.sparse.hstack([train_subject_features, train_email_features])
-          test = scipy.sparse.hstack([test_subject_features, test_email_features])
-          train = scipy.sparse.csr_matrix(train)
-          test = scipy.sparse.csr_matrix(test)
-        # else:
-        #   train = np.hstack((train_subject_features, train_email_features))
-        #   test = np.hstack((test_subject_features, test_email_features))
+  #     logging.info("Loading Data for %s, %s:" % (stem, vectorizer))
+  #     train_email_features, test_email_features = load_data.load_email_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
+  #     train_subject_features, test_subject_features = load_data.load_subject_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
+  #     for textType in ['email', 'subject']:
+  #       logging.info("Building Model for %s " % textType)
+  #       if textType == 'email':
+  #         train, test = train_email_features, test_email_features
+  #       elif textType == 'subject':
+  #         train, test = train_subject_features, test_subject_features
+  #       # else:
+  #       #   train = np.hstack((train_subject_features, train_email_features))
+  #       #   test = np.hstack((test_subject_features, test_email_features))
 
-        split_train, split_labels = segment_for_even_distribution(train, train_labels)
-        logging.info("Data Split, Starting Model Build for %s, %s, and %i features with length %i at: " % (stem, vectorizer, n, len(split_labels)))
-        t0 = time()
-        svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
-        logging.info("done in %0.3fs" % (time() - t0))
-        logging.info("======================================================================================================")
+  #       split_train, split_labels = segment_for_even_distribution(train, train_labels)
+  #       logging.info("Data Split, Starting Model Build for %s, %s with length %i at: " % (stem, vectorizer, len(split_labels)))
+  #       t0 = time()
+  #       svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
+  #       logging.info("done in %0.3fs" % (time() - t0))
+  #       logging.info("======================================================================================================")
 
 
    # X_data, y_data = load_feature_data(build_data=build_data, test_train='train')
