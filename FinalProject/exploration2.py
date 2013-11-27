@@ -29,7 +29,7 @@ import scipy
 import load_data
 
 import logging
-logging.basicConfig(filename='models_16.log',level=logging.DEBUG)
+logging.basicConfig(filename='final_model.log',level=logging.DEBUG)
 
 
 # from read_csv import read_csv_to_numpy_array
@@ -220,8 +220,8 @@ if __name__ == "__main__":
   
   vectorizer = 'TfidfVectorizer'
   stem = 'RegexpStemmer'
-  # v2 = 'HashingVectorizer'
-  v2 = 'TfidfVectorizer' # To work with NOrmalization
+  v2 = 'HashingVectorizer'
+  # v2 = 'TfidfVectorizer' # To work with NOrmalization
   n1 = '1000'
   n2 = '100000'
   strong_ext = '_chi2_strong_' + vectorizer
@@ -239,18 +239,18 @@ if __name__ == "__main__":
   ### Done Normalizing
   train_email_features, test_email_features = load_data.load_email_data(0, vectorizer, stemmer=stem, vectorizer=v2)
   train_subject_features, test_subject_features = load_data.load_subject_data(0, vectorizer, stemmer=stem, vectorizer=v2)
-  # train_email_features_n1, test_email_features_n1 = load_data.load_email_data(0, n1+v2, stemmer=stem, vectorizer=v2)
-  # train_subject_features_n1, test_subject_features_n1 = load_data.load_subject_data(0, n1+v2, stemmer=stem, vectorizer=v2)
-  # train_email_features_n2, test_email_features_n2 = load_data.load_email_data(0, n2+v2, stemmer=stem, vectorizer=v2)
-  # train_subject_features_n2, test_subject_features_n2 = load_data.load_subject_data(0, n2+v2, stemmer=stem, vectorizer=v2)
+  train_email_features_n1, test_email_features_n1 = load_data.load_email_data(0, n1+v2, stemmer=stem, vectorizer=v2)
+  train_subject_features_n1, test_subject_features_n1 = load_data.load_subject_data(0, n1+v2, stemmer=stem, vectorizer=v2)
+  train_email_features_n2, test_email_features_n2 = load_data.load_email_data(0, n2+v2, stemmer=stem, vectorizer=v2)
+  train_subject_features_n2, test_subject_features_n2 = load_data.load_subject_data(0, n2+v2, stemmer=stem, vectorizer=v2)
   train_email_strong_features, test_email_strong_features = load_data.load_email_data(0, strong_ext, stemmer=stem, vectorizer=vectorizer)
   train_subject_strong_features, test_subject_strong_features = load_data.load_subject_data(0, strong_ext, stemmer=stem, vectorizer=vectorizer)
   train_email_weak_features, test_email_weak_features = load_data.load_email_data(0, weak_ext, stemmer=stem, vectorizer=vectorizer)
   train_subject_weak_features, test_subject_weak_features = load_data.load_subject_data(0, weak_ext, stemmer=stem, vectorizer=vectorizer)
 
   logging.info("All Data Loaded")
-  for t in ['all']:
-    for s in ['strong', 'all']:
+  for t in ['email']:
+    for s in ['n2']:
       if t == 'email':
         if s =='strong':
           trainer = train_email_strong_features
@@ -376,8 +376,7 @@ if __name__ == "__main__":
         # svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
         # c_range = [.1, 1, 10 ,100, 1000, 10000]
         # penalties = ['l1', 'l2']
-        for power in ['strong', 'weak']:
-          logRegTrainAndPrintScore(split_train, split_labels, test, test_labels, chi2_features=power)        
+        logRegTrainAndPrintScore(split_train, split_labels, test, test_labels)        
 
   # #SPlit up the data to better parts
   # for stem in ['PorterStemmer', 'RegexpStemmer', 'LancasterStemmer']:
