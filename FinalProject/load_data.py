@@ -14,6 +14,7 @@ from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 
 import numpy as np
+import sklearn.feature_selection as fs
 
 from dtypes import dtypes, ind, day_mapping, region_mapping
 from read_csv import read_csv, read_csv_to_dict, read_email_file
@@ -242,7 +243,7 @@ def preProcessText (textArray, stemmer='PorterStemmer', vectorizer='TfidfVectori
     i+= 1
   print len(newArray)
   if vectorizer != 'unVectorized':
-    return TextVectorizer(newArray, vectorizer=vectorizer, num_features=num_features)
+    tv =  TextVectorizer(newArray, vectorizer=vectorizer, num_features=num_features)
   else:
     return newArray
 
@@ -290,7 +291,8 @@ def buildSubjectText(requests, stemmer='PorterStemmer', vectorizer='TfidfVectori
 #####################################################################################
 #Function to load text data
 #################
-def load_subject_data(build_data, extension, stemmer='PorterStemmer', vectorizer='TfidfVectorizer', num_features = None):
+def load_subject_data(build_data, extension, stemmer='PorterStemmer', vectorizer='TfidfVectorizer', num_features = None, 
+                      labels=np.array([])):
   train_data = read_csv(data_directory + 'request_info_train.txt')
   test_data = read_csv(data_directory + 'request_info_test.txt')
   train_length = len(train_data)
@@ -309,13 +311,31 @@ def load_subject_data(build_data, extension, stemmer='PorterStemmer', vectorizer
     f = open('pickle_data/subject_features_' + extension + '_' + stemmer + '.pkl', 'r')
     subject_features = pickle.load(f)
     f.close()
+    if labels.any():
+      chi2 = fs.chi2(subject_features, labels)
+      strong = []
+      weak = []
+      for i, p in enumerate(chi2[1]):
+        if p < 0.1:
+          weak.append(i)
+          if p < .05:
+            strong.append(i)
+      strongFeatures = subject_features[:,strong]
+      weakFeatures = subject_features[:,weak]
+      f = open('pickle_data/subject_features_' + '_chi2_strong_' + extension + '_' + stemmer + '.pkl', 'w')
+      pickle.dump(strongFeatures, f)
+      f.close()
+      f = open('pickle_data/subject_features_' + '_chi2_weak_' + extension + '_' + stemmer + '.pkl', 'w')
+      pickle.dump(weakFeatures, f)
+      f.close()
   
   train = subject_features[:train_length]
   test = subject_features[train_length:]
   return train, test
 
 
-def load_email_data(build_data, extension, stemmer='PorterStemmer', vectorizer='TfidfVectorizer', num_features = None):
+def load_email_data(build_data, extension, stemmer='PorterStemmer', vectorizer='TfidfVectorizer', num_features = None, 
+                      labels=np.array([])):
   train_data = read_csv(data_directory + 'request_info_train.txt')
   test_data = read_csv(data_directory + 'request_info_test.txt')
   train_length = len(train_data)
@@ -334,6 +354,23 @@ def load_email_data(build_data, extension, stemmer='PorterStemmer', vectorizer='
     f = open('pickle_data/body_features_' + extension + '_' + stemmer + '.pkl', 'r')
     body_features = pickle.load(f)
     f.close()
+    if labels.any():
+      chi2 = fs.chi2(body_features, labels)
+      strong = []
+      weak = []
+      for i, p in enumerate(chi2[1]):
+        if p < 0.1:
+          weak.append(i)
+          if p < .05:
+            strong.append(i)
+      strongFeatures = body_features[:,strong]
+      weakFeatures = body_features[:,weak]
+      f = open('pickle_data/body_features_' + '_chi2_strong_' + extension + '_' + stemmer + '.pkl', 'w')
+      pickle.dump(strongFeatures, f)
+      f.close()
+      f = open('pickle_data/body_features_' + '_chi2_weak_' + extension + '_' + stemmer + '.pkl', 'w')
+      pickle.dump(weakFeatures, f)
+      f.close()
 
   print "Text Data Returned"
 
@@ -346,20 +383,23 @@ def load_email_data(build_data, extension, stemmer='PorterStemmer', vectorizer='
 #####################################################################################
 
 if __name__ == "__main__":
-  # for stem in ['PorterStemmer', 'RegexpStemmer', 'LancasterStemmer']:
-  #   for vectorizer in ['unVectorized', 'TfidfVectorizer', 'HashingVectorizer']:
-  #     print "Loading Data for %s, %s:" % (stem, vectorizer)
-  #     test, train = load_subject_data(2, vectorizer, stemmer=stem, vectorizer=vectorizer)
-  #     test, train = load_email_data(3, vectorizer, stemmer=stem, vectorizer=vectorizer)
+  train_features, train_labels = load_feature_data(0, test_train='train')
+  test_features, test_labels = load_feature_data(0, test_train='test')
+  all_labels = np.append(train_labels, test_labels)
+  for stem in ['RegexpStemmer', 'PorterStemmer', 'LancasterStemmer']:
+    for vectorizer in ['TfidfVectorizer']:
+      print "Loading Data for %s, %s:" % (stem, vectorizer)
+      test, train = load_subject_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer, labels = all_labels)
+      test, train = load_email_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer, labels = all_labels)
 
   # Best Combinatino seemed to be regexpStemmer, HashingVectorizer
   # Now we play with num_features
-  stem = 'RegexpStemmer'
-  vectorizer = 'HashingVectorizer'
-  for n in (100, 1000, 10000, 100000, 1000000, 10000000, 100000000):
-    print "Loading Data for %s, %s and max_featurs = %i" % (stem, vectorizer, n)    
-    test_train = load_subject_data(2, str(n) + vectorizer, stemmer=stem, vectorizer=vectorizer, num_features=n)
-    test_train = load_email_data(3, str(n) + vectorizer, stemmer=stem, vectorizer=vectorizer, num_features=n)
+  # stem = 'RegexpStemmer'
+  # vectorizer = 'HashingVectorizer'
+  # for n in [100, 1000, 10000, 100000, 1000000, 10000000, 100000000]:
+  #   print "Loading Data for %s, %s and max_featurs = %i" % (stem, vectorizer, n)    
+  #   test_train = load_subject_data(2, str(n) + vectorizer, stemmer=stem, vectorizer=vectorizer, num_features=n)
+  #   test_train = load_email_data(3, str(n) + vectorizer, stemmer=stem, vectorizer=vectorizer, num_features=n)
 
 
 

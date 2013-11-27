@@ -13,6 +13,7 @@ from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn import svm
+from sklearn import linear_model
 from sklearn import decomposition
 from sklearn import cross_validation as cv
 from sklearn import grid_search as gs
@@ -26,7 +27,7 @@ import scipy
 import load_data
 
 import logging
-logging.basicConfig(filename='models_14.log',level=logging.DEBUG)
+logging.basicConfig(filename='models_13.log',level=logging.DEBUG)
 
 
 # from read_csv import read_csv_to_numpy_array
@@ -93,8 +94,6 @@ def segment_for_even_distribution(train_set, train_labels):
   final_indexes = [indexes[i] for i in index_of_indexes]
   return train_set[final_indexes], train_labels[final_indexes]
 
-
-
 def plot_distribution(data, index, title):
   col = select_data(data, [index])
   plt.hist(col)
@@ -131,7 +130,6 @@ def train(features, result):
   clf = grid_search(result)
   logging.info("Gonna start fitting something")
   start = time()
-  clf= svm.SVC()
   clf.fit(features, result)
   logging.info("Fit took this long:")
   logging.info(time() - start)
@@ -154,14 +152,22 @@ def normalize_data(x_data):
   min_max_scaler = preprocessing.MinMaxScaler()
   category_data = select_data(x_data, [0,1])
   numerical_data = select_data(x_data, range(2,45-offset))
-  x_data = np.hstack((category_data, numerical_data))
+  x_data = np.hstack((category_data, numerical_data)) 
 
 
-def svmTrainAndPrintScore(training_set, labels, test_set, test_labels, kernel='linear', c=1, gamma=0):
-  clf = svm.SVC(kernel=kernel, C=c, gamma=gamma)
+def svmTrainAndPrintScore(training_set, labels, test_set, test_labels):
+  clf = svm.SVC()
   clf.fit(training_set, labels)
-  logging.info("-------- SVM via svm.svc      ------------------")
-  logging.info("-------- C=%f,  GAMMA=%f      ------------------" % (c, gamma))
+  logging.info("-------- SVM via svm.svc no params  ------------")
+  logging.info("--------PERFORMANCE ON TRAINING DATA------------")
+  show_score(clf, training_set, labels)
+  logging.info("----------PERFORMANCE ON TEST DATA--------------")
+  show_score(clf, test_set, test_labels)
+
+def logRegTrainAndPrintScore(training_set, labels, test_set, test_labels):
+  clf = linear_model.LogisticRegression()
+  clf.fit(training_set, labels)
+  logging.info("-------- LogisticRegression via linear_model.LogisticRegression no params  ------------")
   logging.info("--------PERFORMANCE ON TRAINING DATA------------")
   show_score(clf, training_set, labels)
   logging.info("----------PERFORMANCE ON TEST DATA--------------")
@@ -186,159 +192,89 @@ if __name__ == "__main__":
   # for i, item in enumerate(X_train):
   # # plot_distribution(X_train, 0, "Day")
   
-  vectorizer = 'TfidfVectorizer'
-  stem = 'RegexpStemmer'
-  v2 = 'HashingVectorizer'
-  n1 = '1000'
-  n2 = '100000'
-  strong_ext = '_chi2_strong_' + vectorizer
-  weak_ext = '_chi2_weak_' + vectorizer
-  train_features, train_labels = load_data.load_feature_data(0, test_train='train')
-  len_train= len(train_labels)
-  test_features, test_labels = load_data.load_feature_data(0, test_train='test')
-  all_labels = np.append(train_labels, test_labels)
-  ## Do better Normalization on Customer Features
-  all_features = np.vstack((train_features, test_features))
-  float_feats = [[float(i) for i in row] for row in all_features]  # Turn values to floating point
-  new_feats = preprocessing.normalize(float_feats, norm='l1', axis=0)
-  train_features = new_feats[:len_train]
-  test_features = new_feats[len_train:]
-  ### Done Normalizing
-  train_email_features, test_email_features = load_data.load_email_data(0, v2, stemmer=stem, vectorizer=v2)
-  train_subject_features, test_subject_features = load_data.load_subject_data(0, v2, stemmer=stem, vectorizer=v2)
-  train_email_features_n1, test_email_features_n1 = load_data.load_email_data(0, n1+v2, stemmer=stem, vectorizer=v2)
-  train_subject_features_n1, test_subject_features_n1 = load_data.load_subject_data(0, n1+v2, stemmer=stem, vectorizer=v2)
-  train_email_features_n2, test_email_features_n2 = load_data.load_email_data(0, n2+v2, stemmer=stem, vectorizer=v2)
-  train_subject_features_n2, test_subject_features_n2 = load_data.load_subject_data(0, n2+v2, stemmer=stem, vectorizer=v2)
-  train_email_strong_features, test_email_strong_features = load_data.load_email_data(0, strong_ext, stemmer=stem, vectorizer=vectorizer)
-  train_subject_strong_features, test_subject_strong_features = load_data.load_subject_data(0, strong_ext, stemmer=stem, vectorizer=vectorizer)
-  train_email_weak_features, test_email_weak_features = load_data.load_email_data(0, weak_ext, stemmer=stem, vectorizer=vectorizer)
-  train_subject_weak_features, test_subject_weak_features = load_data.load_subject_data(0, weak_ext, stemmer=stem, vectorizer=vectorizer)
+  vectorizers = ['TfidfVectorizer', 'HashingVectorizer']
+  stemmers = ['RegexpStemmer', 'LancasterStemmer', 'PorterStemmer']
+  for vectorizer in vectorizers:
+    for stem in stemmers:
+      train_features, train_labels = load_data.load_feature_data(0, test_train='train')
+      len_train= len(train_labels)
+      test_features, test_labels = load_data.load_feature_data(0, test_train='test')
+      all_labels = np.append(train_labels, test_labels)
+      ## Do better Normalization on Customer Features
+      all_features = np.vstack((train_features, test_features))
+      float_feats = [[float(i) for i in row] for row in all_features]  # Turn values to floating point
+      new_feats = preprocessing.normalize(float_feats, norm='l1', axis=0)
+      train_features = new_feats[:len_train]
+      test_features = new_feats[len_train:]
+      ### Done Normalizing
+      train_email_features, test_email_features = load_data.load_email_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
+      train_subject_features, test_subject_features = load_data.load_subject_data(0, vectorizer, stemmer=stem, vectorizer=vectorizer)
 
-  logging.info("All Data Loaded")
-  for t in ['all']:
-    for s in ['all' ]:
-      if t == 'email':
-        if s =='strong':
-          trainer = train_email_strong_features
-          test = test_email_strong_features
-        elif s == 'weak':
-          trainer = train_email_weak_features
-          test = test_email_weak_features
-        elif s == 'n1':
-          trainer = train_email_features_n1
-          test = test_email_features_n1
-        elif s == 'n2':
-          trainer = train_email_features_n2
-          test = test_email_features_n2
-        else:
+      logging.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      logging.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      logging.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      logging.info("VECTORIZER = %s" % vectorizer)
+      logging.info("STEMMER = %s" % stem)
+      logging.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      logging.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      logging.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      
+      logging.info("All Data Loaded")
+      for t in ['both', 'all', 'subject', 'email', 'normal']:
+        if t == 'email':
           trainer = train_email_features
           test = test_email_features
-        split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-        logging.info("============================================================")
-        logging.info("Grid Search SVM on Email Text with %s features" % s)
-        svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
-      elif t == 'subject':
-        if s =='strong':
-          trainer = train_subject_strong_features
-          test = test_subject_strong_features
-        elif s == 'weak':
-          trainer = train_subject_weak_features
-          test = test_subject_weak_features
-        elif s == 'n1':
-          trainer = train_subject_features_n1
-          test = test_subject_features_n1
-        elif s == 'n2':
-          trainer = train_subject_features_n2
-          test = test_subject_features_n2
-        else:
+          split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+          logging.info("============================================================")
+          logging.info("LogisticRegression on Email Text with %s features" % t)
+          # svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
+          logRegTrainAndPrintScore(split_train, split_labels, test, test_labels)        
+        elif t == 'subject':
           trainer = train_subject_features
           test = test_subject_features
-        split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-        logging.info("============================================================")
-        logging.info("Grid Search SVM on Subject Text with %s features" % s)
-        svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
-      elif t == 'both':
-        if s =='strong':
-          trainer_s = train_subject_strong_features
-          test_s = test_subject_strong_features
-          trainer_e = train_email_strong_features
-          test_e = test_email_strong_features
-        elif s == 'weak':
-          trainer_s = train_subject_weak_features
-          test_s = test_subject_weak_features
-          trainer_e = train_email_weak_features
-          test_e = test_email_weak_features
-        elif s =='n1':
-          trainer_s = train_subject_features_n1
-          test_s = test_subject_features_n1
-          trainer_e = train_email_features_n1
-          test_e = test_email_features_n1
-        elif s =='n2':
-          trainer_s = train_subject_features_n2
-          test_s = test_subject_features_n2
-          trainer_e = train_email_features_n2
-          test_e = test_email_features_n2
-        else:
+          split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+          logging.info("============================================================")
+          logging.info("LogisticRegression on Subject Text with %s features" % t)
+          # svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
+          logRegTrainAndPrintScore(split_train, split_labels, test, test_labels)        
+        elif t == 'both':
           trainer_s = train_subject_features
           test_s = test_subject_features
           trainer_e = train_email_features
           test_e = test_email_features
-        trainer = scipy.sparse.hstack([trainer_s, trainer_e])
-        test = scipy.sparse.hstack([test_s, test_e])
-        trainer = scipy.sparse.csr_matrix(trainer)
-        test = scipy.sparse.csr_matrix(test)
-        split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-        logging.info("============================================================")
-        logging.info("Grid Search SVM on ALL Text with %s features" % s)
-        svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
-      elif t =='normal':
-        trainer = train_features
-        test = test_features
-        split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-        logging.info("============================================================")
-        logging.info("Grid Search SVM on Customer Info with %s features" % s)
-        svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
-      elif t == 'all':
-        if s =='strong':
-          trainer_s = train_subject_strong_features
-          test_s = test_subject_strong_features
-          trainer_e = train_email_strong_features
-          test_e = test_email_strong_features
-        elif s == 'weak':
-          trainer_s = train_subject_weak_features
-          test_s = test_subject_weak_features
-          trainer_e = train_email_weak_features
-          test_e = test_email_weak_features
-        elif s =='n1':
-          trainer_s = train_subject_features_n1
-          test_s = test_subject_features_n1
-          trainer_e = train_email_features_n1
-          test_e = test_email_features_n1
-        elif s =='n2':
-          trainer_s = train_subject_features_n2
-          test_s = test_subject_features_n2
-          trainer_e = train_email_features_n2
-          test_e = test_email_features_n2
-        else:
+          trainer = scipy.sparse.hstack([trainer_s, trainer_e])
+          test = scipy.sparse.hstack([test_s, test_e])
+          trainer = scipy.sparse.csr_matrix(trainer)
+          test = scipy.sparse.csr_matrix(test)
+          split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+          logging.info("============================================================")
+          logging.info("LogisticRegression on ALL Text with %s features" % t)
+          # svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
+          logRegTrainAndPrintScore(split_train, split_labels, test, test_labels)        
+        elif t =='normal':
+          trainer = train_features
+          test = test_features
+          split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+          logging.info("============================================================")
+          logging.info("LogisticRegression on Customer Info with %s features" % t)
+          # svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
+          logRegTrainAndPrintScore(split_train, split_labels, test, test_labels)        
+        elif t == 'all':
           trainer_s = train_subject_features
           test_s = test_subject_features
           trainer_e = train_email_features
           test_e = test_email_features
-        train_feats_sparse = scipy.sparse.csr_matrix(train_features)
-        test_feats_sparse = scipy.sparse.csr_matrix(test_features)
-        trainer = scipy.sparse.hstack([train_feats_sparse, trainer_s, trainer_e])
-        test = scipy.sparse.hstack([test_feats_sparse, test_s, test_e])
-        trainer = scipy.sparse.csr_matrix(trainer)
-        test = scipy.sparse.csr_matrix(test)
-        split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
-        logging.info("============================================================")
-        logging.info("Grid Search SVM on ALL DATA with %s features" % s)
-        c_range = 10.0 ** np.arange(6.5,7.5,.25)
-        gamma_range = 10.0 ** np.arange(-1.5,0.5,.25)
-        for c in c_range:
-          for g in gamma_range:
-            svmTrainAndPrintScore(split_train, split_labels, test, test_labels, c=c, gamma=g)
+          train_feats_sparse = scipy.sparse.csr_matrix(train_features)
+          test_feats_sparse = scipy.sparse.csr_matrix(test_features)
+          trainer = scipy.sparse.hstack([train_feats_sparse, trainer_s, trainer_e])
+          test = scipy.sparse.hstack([test_feats_sparse, test_s, test_e])
+          trainer = scipy.sparse.csr_matrix(trainer)
+          test = scipy.sparse.csr_matrix(test)
+          split_train, split_labels = segment_for_even_distribution(trainer, train_labels)
+          logging.info("============================================================")
+          logging.info("GLogisticRegression on ALL DATA with %s features" % t)
+          # svmTrainAndPrintScore(split_train, split_labels, test, test_labels)
+          logRegTrainAndPrintScore(split_train, split_labels, test, test_labels)        
 
   # #SPlit up the data to better parts
   # for stem in ['PorterStemmer', 'RegexpStemmer', 'LancasterStemmer']:
