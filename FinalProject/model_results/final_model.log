@@ -1,0 +1,20 @@
+INFO:root:All Data Loaded
+INFO:root:============================================================
+INFO:root:Grid Search SVM on Email Text with n2 features
+INFO:root:-------- LogisticRegression via linear_model.LogisticRegression C =1.000000, Penalty = l2 ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.92      0.82      0.87      7590
+       True       0.84      0.93      0.88      7590
+
+avg / total       0.88      0.87      0.87     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.31      0.79      0.44      1706
+       True       0.93      0.60      0.73      7582
+
+avg / total       0.81      0.63      0.67      9288
+

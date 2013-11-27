@@ -1,0 +1,69 @@
+INFO:root:Loading Data for PorterStemmer, TfidfVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.16      0.28      7590
+       True       0.54      1.00      0.70      7590
+
+avg / total       0.76      0.58      0.49     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.15      0.27      1706
+       True       0.84      1.00      0.91      7582
+
+avg / total       0.87      0.84      0.79      9288
+
+INFO:root:done in 751.890s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.16      0.28      7590
+       True       0.54      1.00      0.70      7590
+
+avg / total       0.76      0.58      0.49     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.15      0.27      1706
+       True       0.84      1.00      0.91      7582
+
+avg / total       0.87      0.84      0.79      9288
+
+INFO:root:done in 765.232s
+INFO:root:======================================================================================================
+INFO:root:Building Model for both 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.16      0.28      7590
+       True       0.54      1.00      0.70      7590
+
+avg / total       0.76      0.58      0.49     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.15      0.27      1706
+       True       0.84      1.00      0.91      7582
+
+avg / total       0.87      0.84      0.79      9288
+
+INFO:root:done in 1383.210s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for PorterStemmer, HashingVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------

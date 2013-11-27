@@ -1,0 +1,259 @@
+INFO:root:Loading Data for PorterStemmer, TfidfVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.16      0.28      7590
+       True       0.54      1.00      0.70      7590
+
+avg / total       0.76      0.58      0.49     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.15      0.27      1706
+       True       0.84      1.00      0.91      7582
+
+avg / total       0.87      0.84      0.79      9288
+
+INFO:root:done in 3031.940s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.54      0.99      0.70      7590
+       True       0.92      0.15      0.26      7590
+
+avg / total       0.73      0.57      0.48     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.20      0.99      0.33      1706
+       True       0.98      0.11      0.20      7582
+
+avg / total       0.84      0.27      0.22      9288
+
+INFO:root:done in 48.826s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for PorterStemmer, HashingVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.91      0.40      0.56      7590
+       True       0.62      0.96      0.75      7590
+
+avg / total       0.76      0.68      0.65     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.60      0.37      0.46      1706
+       True       0.87      0.95      0.91      7582
+
+avg / total       0.82      0.84      0.82      9288
+
+INFO:root:done in 1104.975s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for PorterStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.54      0.97      0.70      7590
+       True       0.87      0.18      0.29      7590
+
+avg / total       0.71      0.58      0.50     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.20      0.97      0.33      1706
+       True       0.95      0.14      0.24      7582
+
+avg / total       0.82      0.29      0.26      9288
+
+INFO:root:done in 60.145s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for RegexpStemmer, TfidfVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for RegexpStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.16      0.28      7590
+       True       0.54      1.00      0.70      7590
+
+avg / total       0.76      0.58      0.49     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.15      0.27      1706
+       True       0.84      1.00      0.91      7582
+
+avg / total       0.87      0.84      0.79      9288
+
+INFO:root:done in 756.394s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for RegexpStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.55      0.99      0.70      7590
+       True       0.93      0.19      0.31      7590
+
+avg / total       0.74      0.59      0.51     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.21      0.99      0.34      1706
+       True       0.98      0.15      0.25      7582
+
+avg / total       0.84      0.30      0.27      9288
+
+INFO:root:done in 51.363s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for RegexpStemmer, HashingVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for RegexpStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.91      0.40      0.55      7590
+       True       0.61      0.96      0.75      7590
+
+avg / total       0.76      0.68      0.65     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.60      0.37      0.45      1706
+       True       0.87      0.94      0.90      7582
+
+avg / total       0.82      0.84      0.82      9288
+
+INFO:root:done in 1088.035s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for RegexpStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.56      0.97      0.71      7590
+       True       0.89      0.23      0.36      7590
+
+avg / total       0.72      0.60      0.53     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.21      0.97      0.35      1706
+       True       0.96      0.19      0.32      7582
+
+avg / total       0.83      0.33      0.32      9288
+
+INFO:root:done in 59.164s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for LancasterStemmer, TfidfVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for LancasterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.16      0.28      7590
+       True       0.54      1.00      0.70      7590
+
+avg / total       0.76      0.58      0.49     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.98      0.15      0.26      1706
+       True       0.84      1.00      0.91      7582
+
+avg / total       0.87      0.84      0.79      9288
+
+INFO:root:done in 720.348s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for LancasterStemmer, TfidfVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.54      0.99      0.70      7590
+       True       0.92      0.15      0.26      7590
+
+avg / total       0.73      0.57      0.48     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.20      0.99      0.33      1706
+       True       0.98      0.11      0.20      7582
+
+avg / total       0.84      0.27      0.22      9288
+
+INFO:root:done in 47.027s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for LancasterStemmer, HashingVectorizer:
+INFO:root:Building Model for email 
+INFO:root:Data Split, Starting Model Build for LancasterStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.92      0.38      0.54      7590
+       True       0.61      0.96      0.75      7590
+
+avg / total       0.76      0.67      0.64     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.61      0.37      0.46      1706
+       True       0.87      0.95      0.91      7582
+
+avg / total       0.82      0.84      0.83      9288
+
+INFO:root:done in 1459.341s
+INFO:root:======================================================================================================
+INFO:root:Building Model for subject 
+INFO:root:Data Split, Starting Model Build for LancasterStemmer, HashingVectorizer with length 15180 at: 
+INFO:root:-------- SVM via svm.svc no params  ------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.54      0.97      0.70      7590
+       True       0.87      0.18      0.29      7590
+
+avg / total       0.71      0.58      0.50     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.20      0.97      0.33      1706
+       True       0.95      0.14      0.24      7582
+
+avg / total       0.82      0.29      0.26      9288
+
+INFO:root:done in 59.401s
+INFO:root:======================================================================================================
+INFO:root:Loading Data for PorterStemmer, TfidfVectorizer:

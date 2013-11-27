@@ -1,0 +1,474 @@
+INFO:root:All Data Loaded
+INFO:root:============================================================
+INFO:root:Grid Search SVM on ALL DATA with all features
+INFO:root:All Data Loaded
+INFO:root:============================================================
+INFO:root:Grid Search SVM on ALL DATA with all features
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=0.031623      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=0.056234      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=0.100000      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=0.177828      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=0.316228      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=0.562341      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=1.000000      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=3162277.660168,  GAMMA=1.778279      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=0.031623      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=0.056234      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=0.100000      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=0.177828      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=0.316228      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=0.562341      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=1.000000      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=5623413.251903,  GAMMA=1.778279      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.78      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=0.031623      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=0.056234      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=0.100000      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=0.177828      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=0.316228      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=0.562341      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=1.000000      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=10000000.000000,  GAMMA=1.778279      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=17782794.100389,  GAMMA=0.031623      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
+INFO:root:-------- SVM via svm.svc      ------------------
+INFO:root:-------- C=17782794.100389,  GAMMA=0.056234      ------------------
+INFO:root:--------PERFORMANCE ON TRAINING DATA------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       1.00      1.00      1.00      7590
+       True       1.00      1.00      1.00      7590
+
+avg / total       1.00      1.00      1.00     15180
+
+INFO:root:----------PERFORMANCE ON TEST DATA--------------
+INFO:root:             precision    recall  f1-score   support
+
+      False       0.27      0.79      0.41      1706
+       True       0.92      0.53      0.67      7582
+
+avg / total       0.80      0.58      0.62      9288
+
